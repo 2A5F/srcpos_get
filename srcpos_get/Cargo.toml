@@ -1,0 +1,17 @@
+[package]
+name = "srcpos_get"
+version = "0.1.0"
+authors = ["Package <u2a5f@outlook.com>"]
+edition = "2018"
+description = "Calculate Loc / Pos"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+srcpos_get_derive = { version = "0.1", path = "../derive", optional = true }
+srcpos = "1.1.1"
+
+[features]
+default = ["derive"]
+derive = ["srcpos_get_derive"]

@@ -1,0 +1,21 @@
+[package]
+name = "srcpos_get_derive"
+version = "0.1.0"
+authors = ["Package <u2a5f@outlook.com>"]
+edition = "2018"
+description = "Derive for srcpos_get"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = "1.0"
+
+[dev-dependencies]
+srcpos_get = { path = "../srcpos_get" }
+srcpos = "1.1.1"
