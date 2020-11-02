@@ -15,6 +15,30 @@ pub trait GetPos {
     fn pos(&self) -> Pos;
 }
 
+impl<T: GetLoc> GetLoc for &T {
+    fn loc(&self) -> Loc {
+        (**self).loc()
+    }
+}
+
+impl<T: GetLoc> GetLoc for &mut T {
+    fn loc(&self) -> Loc {
+        (**self).loc()
+    }
+}
+
+impl<T: GetPos> GetPos for &T {
+    fn pos(&self) -> Pos {
+        (**self).pos()
+    }
+}
+
+impl<T: GetPos> GetPos for &mut T {
+    fn pos(&self) -> Pos {
+        (**self).pos()
+    }
+}
+
 impl GetLoc for Loc {
     fn loc(&self) -> Loc {
         *self
