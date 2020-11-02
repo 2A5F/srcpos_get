@@ -8,9 +8,7 @@ struct A {
 
 #[test]
 fn test_a() {
-    let a = A {
-        pos: posof!(0),
-    };
+    let a = A { pos: posof!(0) };
     let v = a.pos();
     assert_eq!(v, posof!(0));
 }
@@ -23,9 +21,7 @@ struct B {
 
 #[test]
 fn test_b() {
-    let b = B {
-        a: posof!(0),
-    };
+    let b = B { a: posof!(0) };
     let v = b.pos();
     assert_eq!(v, posof!(0));
 }
@@ -80,9 +76,7 @@ fn test_e_b() {
 
 #[test]
 fn test_e_c() {
-    let e = E::C {
-        pos: posof!(0),
-    };
+    let e = E::C { pos: posof!(0) };
     let v = e.pos();
     assert_eq!(v, posof!(0));
 }
@@ -94,5 +88,15 @@ fn test_e_d() {
         _b: 0,
     };
     let v = e.pos();
+    assert_eq!(v, posof!(0));
+}
+
+#[derive(GetPos)]
+struct F(Box<Pos>);
+
+#[test]
+fn test_f() {
+    let f = F(Box::new(posof!(0)));
+    let v = f.pos();
     assert_eq!(v, posof!(0));
 }

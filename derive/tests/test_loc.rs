@@ -96,3 +96,13 @@ fn test_e_d() {
     let v = e.loc();
     assert_eq!(v, locof!(0, 0, 0, 0));
 }
+
+#[derive(GetLoc)]
+struct F(Box<Loc>);
+
+#[test]
+fn test_f() {
+    let f = F(Box::new(locof!(0, 0, 0, 0)));
+    let v = f.loc();
+    assert_eq!(v, locof!(0, 0, 0, 0));
+}
