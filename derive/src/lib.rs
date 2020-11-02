@@ -85,7 +85,8 @@ pub fn derive_get_loc(item: TokenStream) -> TokenStream {
                 let imp = quote! {
                     impl #impl_generics ::srcpos_get::GetLoc for #name #ty_generics #where_clause {
                         fn loc(&self) -> ::srcpos_get::Loc {
-                            ::srcpos_get::GetLoc::loc(&self.#loc_id)
+                            use core::borrow::Borrow;
+                            ::srcpos_get::GetLoc::loc(self.#loc_id.borrow())
                         }
                     }
                 };
@@ -127,7 +128,8 @@ pub fn derive_get_loc(item: TokenStream) -> TokenStream {
                 let imp = quote! {
                     impl #impl_generics ::srcpos_get::GetLoc for #name #ty_generics #where_clause {
                         fn loc(&self) -> ::srcpos_get::Loc {
-                            ::srcpos_get::GetLoc::loc(&self.#loc_id)
+                            use core::borrow::Borrow;
+                            ::srcpos_get::GetLoc::loc(self.#loc_id.borrow())
                         }
                     }
                 };
@@ -191,7 +193,7 @@ pub fn derive_get_loc(item: TokenStream) -> TokenStream {
                         }
                         let loc_id = loc_id.unwrap();
                         let vname = &variant.ident;
-                        let imp = quote_spanned! { variant.ident.span() => Self::#vname { #loc_id, .. } => ::srcpos_get::GetLoc::loc(#loc_id) };
+                        let imp = quote_spanned! { variant.ident.span() => Self::#vname { #loc_id, .. } => ::srcpos_get::GetLoc::loc(#loc_id.borrow()) };
                         vimps.push(imp);
                     }
                     syn::Fields::Unnamed(v) => {
@@ -241,7 +243,7 @@ pub fn derive_get_loc(item: TokenStream) -> TokenStream {
                         });
                         let loc_id = format_ident!("v{}", loc_id);
                         let vname = &variant.ident;
-                        let imp = quote_spanned! { variant.ident.span() => Self::#vname(#(#ids),*) => ::srcpos_get::GetLoc::loc(#loc_id) };
+                        let imp = quote_spanned! { variant.ident.span() => Self::#vname(#(#ids),*) => ::srcpos_get::GetLoc::loc(#loc_id.borrow()) };
                         vimps.push(imp);
                     }
                     syn::Fields::Unit => {
@@ -257,6 +259,7 @@ pub fn derive_get_loc(item: TokenStream) -> TokenStream {
             let imp = quote! {
                 impl #impl_generics ::srcpos_get::GetLoc for #name #ty_generics #where_clause {
                     fn loc(&self) -> ::srcpos_get::Loc {
+                        use core::borrow::Borrow;
                         match self {
                             #(#vimps),*
                         }
@@ -354,7 +357,8 @@ pub fn derive_get_pos(item: TokenStream) -> TokenStream {
                 let imp = quote! {
                     impl #impl_generics ::srcpos_get::GetPos for #name #ty_generics #where_clause {
                         fn pos(&self) -> ::srcpos_get::Pos {
-                            ::srcpos_get::GetPos::pos(&self.#loc_id)
+                            use core::borrow::Borrow;
+                            ::srcpos_get::GetPos::pos(self.#loc_id.borrow())
                         }
                     }
                 };
@@ -396,7 +400,8 @@ pub fn derive_get_pos(item: TokenStream) -> TokenStream {
                 let imp = quote! {
                     impl #impl_generics ::srcpos_get::GetPos for #name #ty_generics #where_clause {
                         fn pos(&self) -> ::srcpos_get::Pos {
-                            ::srcpos_get::GetPos::pos(&self.#loc_id)
+                            use core::borrow::Borrow;
+                            ::srcpos_get::GetPos::pos(self.#loc_id.borrow())
                         }
                     }
                 };
@@ -460,7 +465,7 @@ pub fn derive_get_pos(item: TokenStream) -> TokenStream {
                         }
                         let loc_id = loc_id.unwrap();
                         let vname = &variant.ident;
-                        let imp = quote_spanned! { variant.ident.span() => Self::#vname { #loc_id, .. } => ::srcpos_get::GetPos::pos(#loc_id) };
+                        let imp = quote_spanned! { variant.ident.span() => Self::#vname { #loc_id, .. } => ::srcpos_get::GetPos::pos(#loc_id.borrow()) };
                         vimps.push(imp);
                     }
                     syn::Fields::Unnamed(v) => {
@@ -510,7 +515,7 @@ pub fn derive_get_pos(item: TokenStream) -> TokenStream {
                         });
                         let loc_id = format_ident!("v{}", loc_id);
                         let vname = &variant.ident;
-                        let imp = quote_spanned! { variant.ident.span() => Self::#vname(#(#ids),*) => ::srcpos_get::GetPos::pos(#loc_id) };
+                        let imp = quote_spanned! { variant.ident.span() => Self::#vname(#(#ids),*) => ::srcpos_get::GetPos::pos(#loc_id.borrow()) };
                         vimps.push(imp);
                     }
                     syn::Fields::Unit => {
@@ -526,6 +531,7 @@ pub fn derive_get_pos(item: TokenStream) -> TokenStream {
             let imp = quote! {
                 impl #impl_generics ::srcpos_get::GetPos for #name #ty_generics #where_clause {
                     fn pos(&self) -> ::srcpos_get::Pos {
+                        use core::borrow::Borrow;
                         match self {
                             #(#vimps),*
                         }
