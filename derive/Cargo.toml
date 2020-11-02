@@ -1,10 +1,12 @@
 [package]
 name = "srcpos_get_derive"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["Package <u2a5f@outlook.com>"]
 edition = "2018"
 description = "Derive for srcpos_get"
 license = "MIT"
+readme = "../README.md"
+repository = "https://github.com/2A5F/srcpos_get"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
